@@ -120,3 +120,7 @@ yarn.lock
 .idea/
 .vscode/
 tools/dev
+
+# Terraform
+terraform/*.terraform*
+terraform/.terraform/*
