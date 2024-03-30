@@ -90,7 +90,7 @@ resource "aws_eip_association" "associate" {
 }
 
 #Output Elastic IP
-output "ec2_eip" {
+output "eip_value" {
     description = "The publih ip of the ec2 "
     value = aws_eip.my_eip.public_ip
 }
