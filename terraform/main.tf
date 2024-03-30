@@ -75,7 +75,7 @@ resource "aws_instance" "my_ec2" {
     instance_type = "t2.micro"
     subnet_id = aws_subnet.my_public_subnet.id
     vpc_security_group_ids = [aws_security_group.my_security_group.id]
-#    key_name = "test_key"
+    key_name = "test_key"
 }
 
 #Configure Elastic IP
