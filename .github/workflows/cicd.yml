@@ -74,7 +74,7 @@ jobs:
           terraform-bin -chdir=terraform output -raw eip_value > ip_address.txt
           echo "ec2_eip=$(cat ip_address.txt)" >> $GITHUB_OUTPUT
 
-      - name: copy file via ssh key
+      - name: Copy file via ssh key
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ steps.ip_address.outputs.ec2_eip }}
