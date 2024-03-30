@@ -68,23 +68,23 @@ jobs:
       - name: Terraform Apply
         run: terraform -chdir=terraform apply --auto-approve
       
-      - name: Terraform Destroy
-        run: |
-          terraform init
-          terraform -chdir=terraform destroy -auto-approve
-
-      # - name: Get ec2 instance ip
-      #   id: ip_address
+      # - name: Terraform Destroy
       #   run: |
-      #     terraform-bin -chdir=terraform output -raw eip_value > ip_address.txt
-      #     echo "ec2_eip=$(cat ip_address.txt)" >> $GITHUB_OUTPUT
+      #     terraform init
+      #     terraform -chdir=terraform destroy -auto-approve
 
-      # - name: Copy file via ssh key
-      #   uses: appleboy/scp-action@v0.1.7
-      #   with:
-      #     host: ${{ steps.ip_address.outputs.ec2_eip }}
-      #     username: ec2-user
-      #     port: 22
-      #     key: ${{ secrets.KEY }}
-      #     source: ./dist
-      #     target: /home/ec2-user/app          
+      - name: Get ec2 instance ip
+        id: ip_address
+        run: |
+          terraform-bin -chdir=terraform output -raw eip_value > ip_address.txt
+          echo "ec2_eip=$(cat ip_address.txt)" >> $GITHUB_OUTPUT
+
+      - name: Copy file via ssh key
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ steps.ip_address.outputs.ec2_eip }}
+          username: ec2-user
+          port: 22
+          key: ${{ secrets.KEY }}
+          source: ./dist
+          target: /home/ec2-user/app          
